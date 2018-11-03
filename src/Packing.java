@@ -12,8 +12,8 @@ public class Packing {
     }
 
     // places the product with largest surface area first in the list
-    public List<Orderline> sortOrderList(List<Orderline> orderList){
-        orderList.sort(new Comparator<Orderline>() {
+    public List<Orderline> sortOrderList(){
+        this.orderList.sort(new Comparator<Orderline>() {
             @Override
             public int compare(Orderline o1, Orderline o2) {
                 return o1.getProduct().square() > o2.getProduct().square() ? -1 : 0;
@@ -24,8 +24,8 @@ public class Packing {
     }
 
     // rotate horizontally so X was longer side
-    public List<Orderline> rotateOrderList(List<Orderline> orderList){
-        for (Orderline x : orderList) {
+    public List<Orderline> rotateOrderList(){
+        for (Orderline x : this.orderList) {
             if (x.getProduct().getSizeX() < x.getProduct().getSizeY())
                 x.getProduct().rotate();
         }
@@ -53,8 +53,8 @@ public class Packing {
 
     public void CasePacking() {
         int sizeZ = this.orderList.get(0).getProduct().getSizeZ();
-        sortOrderList(this.orderList);
-        rotateOrderList(this.orderList);
+        sortOrderList();
+        rotateOrderList();
         for (Case box : this.cases) {
             System.out.printf("In case id = %d places:%n", box.getId());
             for (int i = 1; i <= box.getSizeZ() / sizeZ; i++) {
